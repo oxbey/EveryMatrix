@@ -10,17 +10,34 @@ public class StringProcessing {
         add("as");
         add("RREe");
     }};
-    char[] chars = strings.get(0).toCharArray();
 
     public String processing(List<String> values, int maxDuplicates) {
+        List<String> list = new ArrayList<>();
         Map<String, Integer> map = new HashMap<>();
+
         for(String str: values){
             map.put(str, stringDuplicates(str));
         }
-        map.values().stream()
-                .filter((currentDuplicates)-> currentDuplicates<=maxDuplicates);
+        for (Map.Entry<String, Integer> entry : map.entrySet()){
+            if (entry.getValue() <= maxDuplicates){
+                list.add(entry.getKey());
+            }
+        }
+        String s = list.stream()
+                .max(Comparator.comparingInt(String::length)).get();
 
-        return null;
+        for(int i = 0; i < values.size(); i++){
+            if (values.get(i)==s){
+                if (i == 0){
+                    s = values.get(i+1);
+                } else if (i == values.size()){
+                    s = values.get(i-1);
+                } else {
+                    s = values.get(i-1).concat(" " + values.get(i+1));
+                }
+            }
+        }
+        return s;
     }
 
 
@@ -40,7 +57,7 @@ public class StringProcessing {
                 }
             }
         }
-        System.out.println(list);
+//        System.out.println(list);
         return currentValueDuplicates;
     }
 }

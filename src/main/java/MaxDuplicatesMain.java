@@ -6,6 +6,6 @@ public class MaxDuplicatesMain {
 //        System.out.println(str);
 //        System.out.println(processing.stringDuplicates(str));
 
-//        processing.processing(processing.strings);
+        System.out.println(processing.processing(processing.strings, 2));
     }
 }
