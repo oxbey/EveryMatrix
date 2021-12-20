@@ -5,10 +5,11 @@ import java.util.*;
 public class StringProcessing {
 
     public List<String> strings = new ArrayList<>() {{
-        add("asdada");
-        add("aWEqwqe");
         add("as");
         add("RREe");
+        add("aWEqwqe");
+        add("dGTygy");
+        add("asdadaxxwert");
     }};
 
     public String processing(List<String> values, int maxDuplicates) {
@@ -23,21 +24,23 @@ public class StringProcessing {
                 list.add(entry.getKey());
             }
         }
-        String s = list.stream()
+        String maxLengthString = list.stream()
                 .max(Comparator.comparingInt(String::length)).get();
 
+        String concatString = null;
+        System.out.println(maxLengthString);
         for(int i = 0; i < values.size(); i++){
-            if (values.get(i)==s){
+            if (values.get(i)==maxLengthString){
                 if (i == 0){
-                    s = values.get(i+1);
-                } else if (i == values.size()){
-                    s = values.get(i-1);
+                    concatString = values.get(i + 1);
+                } else if (i == values.size()-1) {
+                    concatString = values.get(i - 1);
                 } else {
-                    s = values.get(i-1).concat(" " + values.get(i+1));
+                    concatString = values.get(i-1).concat(values.get(i+1));
                 }
             }
         }
-        return s;
+        return concatString;
     }
 
 
@@ -57,7 +60,15 @@ public class StringProcessing {
                 }
             }
         }
-//        System.out.println(list);
         return currentValueDuplicates;
+    }
+
+    public List<String> autoGeneration(int size){
+        List<String> stringList = new ArrayList<>(){{
+            for (int i = 0; i < size; i++) {
+                add(RandomStringUtils.randomAlphabetic(2,20));
+            }
+        }};
+        return stringList;
     }
 }
